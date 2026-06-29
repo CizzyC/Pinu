@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pinu Word Bingo Tutorial</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --bg: #d0f3ff;
+      --bg-deep: #9be2ff;
+      --blue: #1298ee;
+      --blue-dark: #0878ca;
+      --cyan: #35caef;
+      --card: #fbfdff;
+      --line: #8bdcff;
+      --green: #45c96d;
+      --yellow: #ffc94c;
+      --pink: #f65798;
+      --violet: #9d76ff;
+      --ink: #172333;
+      --muted: #637785;
+      --shadow: 0 10px 0 rgba(8, 120, 202, 0.18), 0 18px 32px rgba(0, 82, 130, 0.12);
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 22% 12%, rgba(255, 255, 255, 0.95), transparent 24%),
+        radial-gradient(circle at 82% 6%, rgba(255, 201, 76, 0.34), transparent 18%),
+        linear-gradient(145deg, #eefaff 0%, #bceeff 52%, #f8fdff 100%);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+    }
+    .phone {
+      width: 590px;
+      height: 1280px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 30% 16%, rgba(255,255,255,.75), transparent 20%),
+        linear-gradient(180deg, rgba(208, 243, 255, 0.2), rgba(208, 243, 255, 0.7));
+    }
+    .panel {
+      width: 526px;
+      padding: 20px 18px 24px;
+      border-radius: 34px;
+      background:
+        linear-gradient(180deg, #1098ef 0 170px, #fbfdff 170px 100%);
+      border: 6px solid #ffffff;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: 27px;
+      pointer-events: none;
+      border: 2px solid rgba(139, 220, 255, 0.48);
+    }
+    .title {
+      margin: 0;
+      color: #ffffff;
+      text-align: center;
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 1000;
+      text-shadow: 0 3px 0 rgba(5, 95, 165, 0.22);
+    }
+    .subtitle {
+      width: 410px;
+      margin: 10px auto 20px;
+      text-align: center;
+      color: rgba(255,255,255,.92);
+      font-size: 17px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      position: relative;
+      z-index: 1;
+    }
+    .card {
+      min-height: 305px;
+      padding: 13px 12px 14px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #ffffff 0%, #e7f9ff 100%);
+      border: 2px solid var(--line);
+      box-shadow: 0 6px 0 rgba(7, 120, 202, 0.12);
+    }
+    .labels {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 3px;
+      margin-bottom: 5px;
+    }
+    .labels span {
+      height: 15px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 8px;
+      font-weight: 1000;
+    }
+    .labels span:nth-child(1) { background: var(--pink); }
+    .labels span:nth-child(2) { background: var(--yellow); color: #56400b; }
+    .labels span:nth-child(3) { background: var(--violet); }
+    .labels span:nth-child(4) { background: var(--green); }
+    .labels span:nth-child(5) { background: var(--cyan); }
+    .board {
+      width: 168px;
+      margin: 0 auto 12px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 5px;
+    }
+    .tile {
+      width: 100%;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 2px solid var(--line);
+      background: linear-gradient(180deg, #ffffff 0%, #f5fbff 100%);
+      box-shadow: 0 3px 0 rgba(7, 120, 202, 0.18);
+      color: #263241;
+      text-align: center;
+      font-size: 8px;
+      line-height: 0.95;
+      font-weight: 1000;
+      padding: 2px;
+    }
+    .tile.line {
+      border-color: #ffb72f;
+      background: linear-gradient(180deg, #fff6b7 0%, #ffc94c 100%);
+      color: #684600;
+      box-shadow: 0 3px 0 rgba(160, 102, 0, 0.24), 0 0 0 3px rgba(255, 201, 76, 0.22);
+      position: relative;
+    }
+    .tile.line::after {
+      content: "★";
+      position: absolute;
+      right: 3px;
+      top: 2px;
+      color: rgba(255,255,255,.95);
+      font-size: 8px;
+      text-shadow: 0 1px 0 rgba(122, 82, 0, 0.22);
+    }
+    .tile.selected {
+      border-color: #0ba1e7;
+      background: linear-gradient(180deg, #c9f8ff 0%, #5bd1ff 100%);
+      color: var(--blue-dark);
+    }
+    .card-title {
+      text-align: center;
+      margin: 0 0 5px;
+      color: var(--blue-dark);
+      font-size: 21px;
+      line-height: 1.05;
+      font-weight: 1000;
+    }
+    .card-copy {
+      margin: 0 auto;
+      width: 180px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+    .mini-footer {
+      width: 188px;
+      margin: 0 auto 10px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 74px;
+      gap: 7px;
+      align-items: center;
+    }
+    .fever-bank {
+      height: 42px;
+      padding: 7px 9px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: inset 0 0 0 1px rgba(8, 120, 202, 0.08);
+    }
+    .fever-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-size: 7px;
+      font-weight: 1000;
+      color: var(--blue-dark);
+    }
+    .track {
+      height: 7px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #d4eef8;
+    }
+    .fill {
+      width: 78%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--yellow), #7eed84, #a4f3ff);
+    }
+    .bingo-btn {
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff4a5 0%, #ffc94c 48%, #ff9f2f 100%);
+      color: #684600;
+      box-shadow: 0 5px 0 #c77a00, 0 0 0 4px rgba(255, 201, 76, 0.22);
+      font-size: 15px;
+      font-weight: 1000;
+      text-shadow: 0 1px 0 rgba(255,255,255,.42);
+    }
+    .footer-hint {
+      width: 205px;
+      margin: 0 auto 10px;
+      padding: 8px 10px;
+      border-radius: 16px;
+      background: #e7f9ff;
+      color: var(--blue-dark);
+      font-size: 10px;
+      line-height: 1.2;
+      font-weight: 1000;
+      text-align: center;
+      border: 1px solid var(--line);
+    }
+
+    .action-card {
+      display: grid;
+      align-content: center;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+    .action-demo {
+      width: 198px;
+      margin: 10px auto 0;
+      display: grid;
+      gap: 17px;
+      justify-items: center;
+    }
+    .big-fever-bank {
+      width: 198px;
+      height: 68px;
+      padding: 15px 15px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: inset 0 0 0 1px rgba(8, 120, 202, 0.1), 0 5px 0 rgba(7, 120, 202, 0.1);
+    }
+    .big-fever-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+      color: var(--blue-dark);
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 1000;
+    }
+    .big-track {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #d4eef8;
+    }
+    .big-fill {
+      width: 78%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--yellow), #7eed84, #a4f3ff);
+    }
+    .big-bingo-btn {
+      width: 166px;
+      height: 68px;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #fff4a5 0%, #ffc94c 48%, #ff9f2f 100%);
+      color: #684600;
+      box-shadow: 0 7px 0 #c77a00, 0 0 0 5px rgba(255, 201, 76, 0.22);
+      font-size: 27px;
+      font-weight: 1000;
+      text-shadow: 0 1px 0 rgba(255,255,255,.42);
+    }
+    .ready-note {
+      width: 198px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.22;
+      font-weight: 1000;
+    }
+    .got {
+      width: 224px;
+      height: 58px;
+      margin: 22px auto 0;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #8cf5ff 0%, #20bef1 52%, #0e91df 100%);
+      color: #ffffff;
+      font-size: 29px;
+      font-weight: 1000;
+      box-shadow: 0 7px 0 #0878ca;
+      text-shadow: 0 2px 0 rgba(5,95,165,.24);
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <section class="panel">
+      <h1 class="title">How to Play</h1>
+      <p class="subtitle">Listen for the word. Tap the matching word card. Complete a line to claim Bingo.</p>
+      <div class="cards">
+        <article class="card">
+          <div class="labels"><span>B</span><span>I</span><span>N</span><span>G</span><span>O</span></div>
+          <div class="board">
+            <div class="tile">hola</div><div class="tile">agua</div><div class="tile">cafe</div><div class="tile">pan</div><div class="tile">casa</div>
+            <div class="tile">libro</div><div class="tile">mesa</div><div class="tile">hoy</div><div class="tile">no</div><div class="tile">si</div>
+            <div class="tile line">amigo</div><div class="tile line">calle</div><div class="tile line">tienda</div><div class="tile line">lento</div><div class="tile line">rico</div>
+            <div class="tile">gato</div><div class="tile">perro</div><div class="tile">sol</div><div class="tile">luna</div><div class="tile">rojo</div>
+            <div class="tile">azul</div><div class="tile">verde</div><div class="tile">tren</div><div class="tile">sal</div><div class="tile">PINU</div>
+          </div>
+          <h2 class="card-title">Horizontal Line</h2>
+          <p class="card-copy">Match every word in any row.</p>
+        </article>
+        <article class="card">
+          <div class="labels"><span>B</span><span>I</span><span>N</span><span>G</span><span>O</span></div>
+          <div class="board">
+            <div class="tile">hola</div><div class="tile">agua</div><div class="tile line">cafe</div><div class="tile">pan</div><div class="tile">casa</div>
+            <div class="tile">libro</div><div class="tile">mesa</div><div class="tile line">hoy</div><div class="tile">no</div><div class="tile">si</div>
+            <div class="tile">amigo</div><div class="tile">calle</div><div class="tile line">tienda</div><div class="tile">lento</div><div class="tile">rico</div>
+            <div class="tile">gato</div><div class="tile">perro</div><div class="tile line">sol</div><div class="tile">luna</div><div class="tile">rojo</div>
+            <div class="tile">azul</div><div class="tile">verde</div><div class="tile line">tren</div><div class="tile">sal</div><div class="tile">PINU</div>
+          </div>
+          <h2 class="card-title">Vertical Line</h2>
+          <p class="card-copy">Match every word in any column.</p>
+        </article>
+        <article class="card">
+          <div class="labels"><span>B</span><span>I</span><span>N</span><span>G</span><span>O</span></div>
+          <div class="board">
+            <div class="tile line">hola</div><div class="tile">agua</div><div class="tile">cafe</div><div class="tile">pan</div><div class="tile">casa</div>
+            <div class="tile">libro</div><div class="tile line">mesa</div><div class="tile">hoy</div><div class="tile">no</div><div class="tile">si</div>
+            <div class="tile">amigo</div><div class="tile">calle</div><div class="tile line">PINU</div><div class="tile">lento</div><div class="tile">rico</div>
+            <div class="tile">gato</div><div class="tile">perro</div><div class="tile">sol</div><div class="tile line">luna</div><div class="tile">rojo</div>
+            <div class="tile">azul</div><div class="tile">verde</div><div class="tile">tren</div><div class="tile">sal</div><div class="tile line">casa</div>
+          </div>
+          <h2 class="card-title">Diagonal Line</h2>
+          <p class="card-copy">Match a full diagonal line.</p>
+        </article>
+        <article class="card action-card">
+          <div class="action-demo">
+            <div class="big-fever-bank">
+              <div class="big-fever-label"><span>FEVER x1.0</span><span>78%</span></div>
+              <div class="big-track"><div class="big-fill"></div></div>
+            </div>
+            <div class="ready-note">Keep correct taps to fill Fever.</div>
+            <div class="big-bingo-btn">Bingo</div>
+            <div class="ready-note">When a line is ready, tap Bingo to claim your bonus.</div>
+          </div>
+
+        </article>
+      </div>
+      <div class="got">Got it!</div>
+    </section>
+  </main>
+</body>
+</html>

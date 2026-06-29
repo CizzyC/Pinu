@@ -1,0 +1,117 @@
+<mxfile host="app.diagrams.net" agent="Codex">
+  <diagram id="bingo-board-v2" name="棋盘选择与词量判断">
+    <mxGraphModel dx="1285" dy="767" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1280" pageHeight="1240" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="n2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=16;fontColor=#29415f;" value="棋盘选择与词量判断" vertex="1">
+          <mxGeometry height="30" width="260" x="40" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="用户点击开始 Bingo" vertex="1">
+          <mxGeometry height="58" width="200" x="520" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;" value="当前模式" vertex="1">
+          <mxGeometry height="90" width="160" x="540" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=16;fontColor=#29415f;" value="试玩模式" vertex="1">
+          <mxGeometry height="30" width="180" x="170" y="305" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="使用试玩词包" vertex="1">
+          <mxGeometry height="56" width="180" x="170" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;" value="词包是否满足词量" vertex="1">
+          <mxGeometry height="92" width="170" x="175" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="满足：按配置开局" vertex="1">
+          <mxGeometry height="56" width="190" x="60" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="不满足：降级或提示不可玩" vertex="1">
+          <mxGeometry height="56" width="230" x="285" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=16;fontColor=#29415f;" value="挑战模式" vertex="1">
+          <mxGeometry height="30" width="180" x="820" y="305" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="读取用户已学词池" vertex="1">
+          <mxGeometry height="56" width="190" x="820" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="筛选可用词卡" vertex="1">
+          <mxGeometry height="56" width="190" x="820" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;" value="可用词达到 24 个" vertex="1">
+          <mxGeometry height="92" width="170" x="830" y="535" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="是：开启 5x5" vertex="1">
+          <mxGeometry height="56" width="170" x="660" y="675" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="否：继续判断 16 个词门槛" vertex="1">
+          <mxGeometry height="56" width="250" x="975" y="675" as="geometry" />
+        </mxCell>
+        <mxCell id="n16" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;" value="可用词达到 16 个" vertex="1">
+          <mxGeometry height="92" width="170" x="1015" y="775" as="geometry" />
+        </mxCell>
+        <mxCell id="n17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="是：开启 4x4" vertex="1">
+          <mxGeometry height="56" width="170" x="780" y="925" as="geometry" />
+        </mxCell>
+        <mxCell id="n18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="否：不开局，提示继续学习" vertex="1">
+          <mxGeometry height="56" width="240" x="980" y="925" as="geometry" />
+        </mxCell>
+        <mxCell id="n19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#172033;" value="生成棋盘和随机题目队列" vertex="1">
+          <mxGeometry height="58" width="260" x="520" y="1085" as="geometry" />
+        </mxCell>
+        <mxCell id="n20" edge="1" parent="1" source="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n21" edge="1" parent="1" source="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n6" value="试玩模式">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n22" edge="1" parent="1" source="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n23" edge="1" parent="1" source="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n8" value="是">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n24" edge="1" parent="1" source="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n9" value="否">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n25" edge="1" parent="1" source="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n11" value="练模式">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n26" edge="1" parent="1" source="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n12" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n27" edge="1" parent="1" source="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n13" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n28" edge="1" parent="1" source="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n14" value="是">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n29" edge="1" parent="1" source="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n15" value="否">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n30" edge="1" parent="1" source="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n16" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n31" edge="1" parent="1" source="n16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n17" value="是">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n32" edge="1" parent="1" source="n16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n18" value="否">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n33" edge="1" parent="1" source="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n19" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="155" y="910" />
+              <mxPoint x="650" y="910" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n34" edge="1" parent="1" source="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="n19" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n35" edge="1" parent="1" source="n17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="n19" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,144 @@
+<mxfile host="app.diagrams.net" agent="Codex">
+  <diagram id="bingo-tutorial-flow-v2" name="局内教学引导流程">
+    <mxGraphModel dx="1230" dy="734" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1280" pageHeight="1280" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="n2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=18;fontColor=#29415f;" value="Bingo 局内教学引导流程" vertex="1">
+          <mxGeometry height="34" width="320" x="40" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=15;fontColor=#29415f;" value="首次进入：完整教学" vertex="1">
+          <mxGeometry height="28" width="240" x="170" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=15;fontColor=#29415f;" value="非首次进入：帮助入口" vertex="1">
+          <mxGeometry height="28" width="260" x="760" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;fontSize=12;spacing=8;" value="用户进入 Bingo 游戏页" vertex="1">
+          <mxGeometry height="58" width="200" x="225" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;fontSize=12;spacing=8;" value="是否首次进入 Bingo" vertex="1">
+          <mxGeometry height="96" width="170" x="240" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;fontSize=12;spacing=8;" value="读取当前模式和语言配置" vertex="1">
+          <mxGeometry height="58" width="220" x="210" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;fontSize=12;spacing=8;" value="替换教学示例文案和题干" vertex="1">
+          <mxGeometry height="58" width="220" x="210" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;fontSize=12;spacing=8;" value="第 1 步：听或看题干" vertex="1">
+          <mxGeometry height="58" width="220" x="210" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;fontSize=12;spacing=8;" value="第 2 步：点击对应词卡" vertex="1">
+          <mxGeometry height="58" width="220" x="210" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;fontSize=12;spacing=8;" value="第 3 步：连成线后点 Bingo" vertex="1">
+          <mxGeometry height="58" width="220" x="210" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;fontSize=12;spacing=8;" value="用户完成或跳过教学" vertex="1">
+          <mxGeometry height="96" width="190" x="225" y="855" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#172033;fontSize=12;spacing=8;" value="记录教学已完成" vertex="1">
+          <mxGeometry height="58" width="180" x="80" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#172033;fontSize=12;spacing=8;" value="记录教学已跳过" vertex="1">
+          <mxGeometry height="58" width="180" x="350" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;fontSize=12;spacing=8;" value="局内帮助入口可见" vertex="1">
+          <mxGeometry height="58" width="200" x="790" y="259" as="geometry" />
+        </mxCell>
+        <mxCell id="n16" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;fontSize=12;spacing=8;" value="用户是否点击帮助" vertex="1">
+          <mxGeometry height="96" width="170" x="805" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="n17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;fontSize=12;spacing=8;" value="展示图片形式教学" vertex="1">
+          <mxGeometry height="58" width="210" x="615" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="n18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;fontSize=12;spacing=8;" value="关闭教学，回到游戏页" vertex="1">
+          <mxGeometry height="58" width="210" x="615" y="615" as="geometry" />
+        </mxCell>
+        <mxCell id="n19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#9aa9b8;fontColor=#172033;fontSize=12;spacing=8;" value="不强制展示教学" vertex="1">
+          <mxGeometry height="58" width="190" x="960" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="n20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;strokeWidth=1.2;fillColor=#f5f5f5;strokeColor=#9aa9b8;fontColor=#44546a;fontSize=12;spacing=10;" value="教学期间不播放正式题目、不消耗游戏时间、不产生答题事件。" vertex="1">
+          <mxGeometry height="70" width="330" x="805" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="n21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;strokeWidth=1.5;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#172033;fontSize=12;spacing=8;" value="进入开局倒计时" vertex="1">
+          <mxGeometry height="62" width="220" x="610" y="1140" as="geometry" />
+        </mxCell>
+        <mxCell id="n22" edge="1" parent="1" source="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n23" edge="1" parent="1" source="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n7" value="是">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n24" edge="1" parent="1" source="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n15" value="否">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n25" edge="1" parent="1" source="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n26" edge="1" parent="1" source="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n27" edge="1" parent="1" source="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n28" edge="1" parent="1" source="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n11" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n29" edge="1" parent="1" source="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n12" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n30" edge="1" parent="1" source="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n13" value="完成">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n31" edge="1" parent="1" source="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n14" value="跳过">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n32" edge="1" parent="1" source="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n21" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="1170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n33" edge="1" parent="1" source="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n21" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="1171" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n34" edge="1" parent="1" source="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n16" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n35" edge="1" parent="1" source="n16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n17" value="是">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n36" edge="1" parent="1" source="n17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n18" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n37" edge="1" parent="1" source="n18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n21" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n38" edge="1" parent="1" source="n16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n19" value="否">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n39" edge="1" parent="1" source="n19" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n21" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1180" y="549" />
+              <mxPoint x="1180" y="1171" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n40" edge="1" parent="1" source="n20" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;fontSize=12;endArrow=block;endFill=1;" target="n21" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="995" y="1171" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

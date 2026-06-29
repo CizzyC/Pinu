@@ -1,0 +1,10 @@
+[submodule "Pinu_demo"]
+	path = Pinu_demo
+	url = https://github.com/CizzyC/Pinu_demo.git
+	branch = demo/gamification-v1
+
+[submodule "Pinu_game"]
+	path = Pinu_game
+	url = https://github.com/CizzyC/Pinu_game.git
+	branch = codex/pinu-bingo-layout-fix
+

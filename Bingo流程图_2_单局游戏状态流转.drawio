@@ -1,0 +1,150 @@
+<mxfile host="app.diagrams.net" agent="Codex">
+  <diagram id="Bingo流程图_2_单局游戏状态流转" name="单局游戏状态流转">
+    <mxGraphModel dx="1414" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1280" pageHeight="1520" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=15;fontColor=#29415f;" value="单局游戏状态流转" vertex="1">
+          <mxGeometry height="28" width="260" x="40" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="start" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="进入游戏页" vertex="1">
+          <mxGeometry height="58" width="160" x="560" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="first" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;" value="是否首次进入 Bingo" vertex="1">
+          <mxGeometry height="96" width="170" x="555" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="teach" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="展示教学引导" vertex="1">
+          <mxGeometry height="58" width="160" x="340" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="skip" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="完成教学" vertex="1">
+          <mxGeometry height="58" width="160" x="340" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="countdown" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="进入开局倒计时" vertex="1">
+          <mxGeometry height="58" width="180" x="750" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="board" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="生成棋盘和题目队列" vertex="1">
+          <mxGeometry height="58" width="190" x="550" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="call" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="开始计时并叫题" vertex="1">
+          <mxGeometry height="58" width="190" x="550" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="valid" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;" value="点击是否有效" vertex="1">
+          <mxGeometry height="92" width="160" x="565" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="score" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="加分并标记词卡" vertex="1">
+          <mxGeometry height="58" width="160" x="360" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="combo" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="更新 Combo 和 Fever" vertex="1">
+          <mxGeometry height="58" width="190" x="345" y="880" as="geometry" />
+        </mxCell>
+        <mxCell id="line" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;" value="是否产生新连线" vertex="1">
+          <mxGeometry height="96" width="170" x="355" y="975" as="geometry" />
+        </mxCell>
+        <mxCell id="invalid" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="轻反馈" vertex="1">
+          <mxGeometry height="58" width="160" x="780" y="805" as="geometry" />
+        </mxCell>
+        <mxCell id="continue1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="继续叫题" vertex="1">
+          <mxGeometry height="58" width="160" x="780" y="885" as="geometry" />
+        </mxCell>
+        <mxCell id="noLine" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="无新连线：继续叫题" vertex="1">
+          <mxGeometry height="58" width="190" x="250" y="1120" as="geometry" />
+        </mxCell>
+        <mxCell id="claim" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="有新连线：领取 Bingo 分数" vertex="1">
+          <mxGeometry height="58" width="230" x="525" y="1120" as="geometry" />
+        </mxCell>
+        <mxCell id="finish" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;" value="本局是否结束" vertex="1">
+          <mxGeometry height="96" width="170" x="555" y="1245" as="geometry" />
+        </mxCell>
+        <mxCell id="loop" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="未结束：继续叫题" vertex="1">
+          <mxGeometry height="58" width="190" x="330" y="1400" as="geometry" />
+        </mxCell>
+        <mxCell id="settle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#172033;" value="已结束：进入结算页" vertex="1">
+          <mxGeometry height="58" width="190" x="760" y="1400" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="start" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="first" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="first" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="teach" value="是">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="teach" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="skip" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="skip" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="countdown" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="first" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="countdown" value="否">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="countdown" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="board" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="840" y="460" />
+              <mxPoint x="645" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="board" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="call" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="call" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="valid" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="valid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="score" value="有效">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="score" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="combo" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="combo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="line" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="valid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="invalid" value="无效">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="invalid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="continue1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="line" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="noLine" value="否">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="line" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="claim" value="是">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="noLine" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="finish" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="345" y="1220" />
+              <mxPoint x="640" y="1220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="claim" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="finish" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="continue1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="finish" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="1220" />
+              <mxPoint x="640" y="1220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="finish" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="loop" value="否">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="loop" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="call" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="1429" />
+              <mxPoint x="190" y="589" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="finish" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="settle" value="是">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

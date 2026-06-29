@@ -1,0 +1,137 @@
+<mxfile host="app.diagrams.net" agent="Codex">
+  <diagram id="Bingo流程图_3_目标分与XP结算" name="目标分与 XP 结算">
+    <mxGraphModel dx="1178" dy="703" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1280" pageHeight="1540" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=15;fontColor=#29415f;" value="目标分与 XP 结算" vertex="1">
+          <mxGeometry height="28" width="260" x="40" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="end" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="游戏结束" vertex="1">
+          <mxGeometry height="58" width="160" x="560" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="score" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="计算本局总分" vertex="1">
+          <mxGeometry height="58" width="160" x="560" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="target" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="读取本局目标分" vertex="1">
+          <mxGeometry height="58" width="160" x="560" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="ratio" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="计算达成比例" vertex="1">
+          <mxGeometry height="58" width="160" x="560" y="335" as="geometry" />
+        </mxCell>
+        <mxCell id="tier" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;" value="判断达成比例档位" vertex="1">
+          <mxGeometry height="96" width="170" x="555" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="t0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="低于 40 档：无分档 XP" vertex="1">
+          <mxGeometry height="58" width="210" x="140" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="t40" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="达到 40 档：获得 40 档 XP" vertex="1">
+          <mxGeometry height="58" width="220" x="390" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="t70" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="达到 70 档：获得 70 档 XP" vertex="1">
+          <mxGeometry height="58" width="220" x="650" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="t90" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="达到 90 档：获得 90 档 XP" vertex="1">
+          <mxGeometry height="58" width="220" x="910" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="bingo" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;" value="是否完成 Bingo" vertex="1">
+          <mxGeometry height="96" width="170" x="555" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="bYes" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="增加 Bingo 奖励 XP" vertex="1">
+          <mxGeometry height="58" width="190" x="340" y="915" as="geometry" />
+        </mxCell>
+        <mxCell id="bNo" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="不增加 Bingo 奖励 XP" vertex="1">
+          <mxGeometry height="58" width="210" x="760" y="915" as="geometry" />
+        </mxCell>
+        <mxCell id="high" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#172033;" value="是否刷新最高分" vertex="1">
+          <mxGeometry height="96" width="170" x="555" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="hYes" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="增加最高分 XP" vertex="1">
+          <mxGeometry height="58" width="180" x="340" y="1215" as="geometry" />
+        </mxCell>
+        <mxCell id="hNo" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="不增加最高分 XP" vertex="1">
+          <mxGeometry height="58" width="190" x="760" y="1215" as="geometry" />
+        </mxCell>
+        <mxCell id="cap" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#172033;" value="应用单局 XP 上限" vertex="1">
+          <mxGeometry height="58" width="180" x="555" y="1340" as="geometry" />
+        </mxCell>
+        <mxCell id="record" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=1.5;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#172033;" value="服务端记录 XP、分数和最高分" vertex="1">
+          <mxGeometry height="58" width="250" x="520" y="1430" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="end" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="score" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="score" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="target" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="target" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="ratio" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="ratio" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="tier" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="tier" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="t0" value="低于 40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="tier" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="t40" value="40 档">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="tier" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="t70" value="70 档">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="tier" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="t90" value="90 档">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="t0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="bingo" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="245" y="720" />
+              <mxPoint x="640" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="t40" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="bingo" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="t70" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="bingo" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="t90" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="bingo" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1020" y="720" />
+              <mxPoint x="640" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="bingo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="bYes" value="是">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="bingo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="bNo" value="否">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="bYes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="high" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="bNo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="high" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="high" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="hYes" value="是">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="high" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="hNo" value="否">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="hYes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="cap" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="hNo" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="cap" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="cap" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.4;strokeColor=#6b7b90;fontColor=#5b6980;endArrow=block;endFill=1;" target="record" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
