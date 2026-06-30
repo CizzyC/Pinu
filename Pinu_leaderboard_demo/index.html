@@ -857,6 +857,12 @@
         box-shadow: 0 7px 0 #0878ca, 0 18px 32px rgba(8, 105, 168, 0.2);
       }
 
+      .primary-button:disabled {
+        opacity: 0.78;
+        transform: translateY(3px);
+        box-shadow: 0 4px 0 #0878ca, 0 12px 24px rgba(8, 105, 168, 0.18);
+      }
+
       .secondary-button {
         min-height: 42px;
         border-radius: 16px;
@@ -1010,39 +1016,6 @@
         place-items: center;
       }
 
-      .rank-toast {
-        position: absolute;
-        z-index: 16;
-        left: 34px;
-        right: 34px;
-        top: 108px;
-        display: none;
-        padding: 15px 18px;
-        border-radius: 22px;
-        background: #101827;
-        color: white;
-        box-shadow: 0 18px 38px rgba(16, 24, 39, 0.28);
-        text-align: left;
-      }
-
-      .rank-toast.is-visible {
-        display: block;
-        animation: toastIn 1600ms ease both;
-      }
-
-      .rank-toast strong {
-        display: block;
-        font-size: 18px;
-      }
-
-      .rank-toast span {
-        display: block;
-        margin-top: 5px;
-        color: #d8e7ef;
-        font-size: 13px;
-        font-weight: 800;
-      }
-
       .settlement-screen,
       .profile-screen {
         background:
@@ -1071,6 +1044,40 @@
         font-size: 27px;
         line-height: 1.08;
         font-weight: 1000;
+      }
+
+      .reward-grant-copy {
+        margin: 10px auto 12px;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        color: #8b98a1;
+        font-size: 12px;
+        font-weight: 1000;
+      }
+
+      .reward-grant-copy strong {
+        color: #c27803;
+        font-size: 16px;
+        line-height: 1.1;
+      }
+
+      .reward-confirmation {
+        max-height: 0;
+        margin: 0;
+        overflow: hidden;
+        opacity: 0;
+        color: #14a663;
+        font-size: 13px;
+        font-weight: 1000;
+        transition: opacity 180ms ease, max-height 180ms ease, margin 180ms ease;
+      }
+
+      .settlement-screen.is-granted .reward-confirmation {
+        max-height: 28px;
+        margin: 8px 0 0;
+        opacity: 1;
       }
 
       .frame-award-card {
@@ -1392,22 +1399,6 @@
         }
       }
 
-      @keyframes toastIn {
-        0% {
-          transform: translateY(-12px);
-          opacity: 0;
-        }
-        18%,
-        82% {
-          transform: translateY(0);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(-8px);
-          opacity: 0;
-        }
-      }
-
       @keyframes confettiFall {
         0% {
           transform: translate(0, -20px) rotate(0deg) scale(0.82);
@@ -1702,10 +1693,6 @@
           </div>
 
           <div class="xp-burst" data-xp-burst>+30 XP</div>
-          <div class="rank-toast" data-rank-toast>
-            <strong>排名上升到第 3 名</strong>
-            <span>超过 3 位同组学习者，距离第 2 名还差 4 XP。</span>
-          </div>
 
           <footer class="leader-footer">
             <button class="sticky-me-card" type="button" data-action="open-profile" aria-label="打开我的个人档案">
@@ -1713,7 +1700,7 @@
               <span class="mini-avatar" data-sticky-avatar>C</span>
               <span>
                 <span class="sticky-me-name">C Cizzy</span>
-                <span class="sticky-me-meta" data-sticky-meta>49 XP · 暂未获得本周头像框</span>
+                <span class="sticky-me-meta" data-sticky-meta>49 XP · 暂未获得本周挂件</span>
               </span>
             </button>
             <div class="leader-footer-actions">
@@ -1808,6 +1795,10 @@
                 <div class="profile-avatar settlement-avatar">C</div>
               </div>
               <h1 class="settlement-title">赞！你获得第 3 名</h1>
+              <div class="reward-grant-copy">
+                <span>获得奖励</span>
+                <strong>第 3 名专属挂件</strong>
+              </div>
 
               <div class="award-result">
                 <article class="summary-tile">
@@ -1871,11 +1862,12 @@
                   <div class="snapshot-xp">58 XP</div>
                 </div>
               </div>
+              <div class="reward-confirmation" data-reward-confirmation>第 3 名专属挂件已自动佩戴</div>
             </article>
           </section>
 
           <div class="settlement-actions">
-            <button class="primary-button" type="button" data-action="play-frame-grant">
+            <button class="primary-button" type="button" data-action="play-frame-grant" data-settlement-continue>
               继续
             </button>
           </div>
@@ -1907,7 +1899,7 @@
             <article class="profile-card">
               <div class="profile-avatar" data-profile-avatar>C</div>
               <div class="profile-name">C Cizzy</div>
-              <div class="profile-status" data-profile-status>暂无本周头像框</div>
+              <div class="profile-status" data-profile-status>暂无本周挂件</div>
 
               <div class="profile-stats">
                 <article class="summary-tile">
@@ -1924,11 +1916,11 @@
             <article class="profile-section">
               <h2>排行榜奖励</h2>
               <div class="profile-row">
-                <span>当前佩戴头像框</span>
+                <span>当前佩戴挂件</span>
                 <span data-current-frame>默认头像样式</span>
               </div>
               <div class="profile-row">
-                <span>最近获得头像框</span>
+                <span>最近获得挂件</span>
                 <span data-latest-frame>暂无</span>
               </div>
               <div class="profile-row">
@@ -1955,7 +1947,6 @@
       const ryanRow = document.querySelector('[data-user="ryan"]');
       const meXp = document.querySelector("[data-me-xp]");
       const xpBurst = document.querySelector("[data-xp-burst]");
-      const toast = document.querySelector("[data-rank-toast]");
       const leaderboardScreen = document.querySelector('[data-screen="leaderboard"]');
       const summaryRank = document.querySelector("[data-summary-rank]");
       const summaryXp = document.querySelector("[data-summary-xp]");
@@ -1971,6 +1962,8 @@
       const latestFrame = document.querySelector("[data-latest-frame]");
       const settlementScreen = document.querySelector('[data-screen="settlement"]');
       const settlementAvatar = document.querySelector(".settlement-avatar");
+      const settlementContinue = document.querySelector("[data-settlement-continue]");
+      const rewardName = "第 3 名专属挂件";
       const state = {
         rank: 6,
         xp: 49,
@@ -1987,9 +1980,9 @@
         [meAvatar, stickyAvatar, profileAvatar].forEach((avatar) => {
           avatar.classList.toggle("frame-gold", isGranted);
         });
-        profileStatus.textContent = isGranted ? "已自动佩戴优秀头像框" : "暂无本周头像框";
-        currentFrame.textContent = isGranted ? "优秀头像框" : "默认头像样式";
-        latestFrame.textContent = isGranted ? "优秀头像框" : "暂无";
+        profileStatus.textContent = isGranted ? `已自动佩戴${rewardName}` : "暂无本周挂件";
+        currentFrame.textContent = isGranted ? rewardName : "默认头像样式";
+        latestFrame.textContent = isGranted ? rewardName : "暂无";
       }
 
       function syncSummary() {
@@ -1997,8 +1990,8 @@
         summaryXp.textContent = `${state.xp} XP`;
         stickyRank.textContent = state.rank;
         stickyMeta.textContent = state.frameGranted
-          ? `${state.xp} XP · 已佩戴优秀头像框`
-          : `${state.xp} XP · 暂未获得本周头像框`;
+          ? `${state.xp} XP · 已佩戴${rewardName}`
+          : `${state.xp} XP · 暂未获得本周挂件`;
         profileWeekly.textContent = `${state.xp} XP`;
         profileRank.textContent = `第 ${state.rank} 名`;
         setMeFrame(state.frameGranted);
@@ -2037,7 +2030,6 @@
         meRow.classList.remove("is-jump");
         leaderboardScreen.classList.remove("is-celebrating");
         xpBurst.classList.remove("is-visible");
-        toast.classList.remove("is-visible");
       }
 
       function playRankUp() {
@@ -2048,7 +2040,6 @@
             meRow.classList.add("is-jump");
             leaderboardScreen.classList.add("is-celebrating");
             xpBurst.classList.add("is-visible");
-            toast.classList.add("is-visible");
             setTimeout(() => {
               leaderboardScreen.classList.remove("is-celebrating");
             }, 2200);
@@ -2059,14 +2050,19 @@
       function showSettlement() {
         setRankRows({ rank: 3, xp: 79 });
         state.frameGranted = false;
-        settlementScreen.classList.remove("is-awarding");
+        settlementScreen.classList.remove("is-awarding", "is-granted");
         settlementAvatar.classList.remove("frame-gold");
+        settlementContinue.disabled = false;
+        settlementContinue.dataset.action = "play-frame-grant";
+        settlementContinue.textContent = "继续";
         syncSummary();
         showScreen("settlement");
       }
 
       function playFrameGrant() {
+        if (settlementScreen.classList.contains("is-awarding")) return;
         settlementScreen.classList.add("is-awarding");
+        settlementContinue.disabled = true;
         setTimeout(() => {
           settlementAvatar.classList.add("frame-gold");
           state.frameGranted = true;
@@ -2074,9 +2070,12 @@
         }, 820);
         setTimeout(() => {
           settlementScreen.classList.remove("is-awarding");
+          settlementScreen.classList.add("is-granted");
+          settlementContinue.disabled = false;
+          settlementContinue.dataset.action = "go-home";
+          settlementContinue.textContent = "已自动佩戴，继续学习";
           state.frameGranted = true;
           syncSummary();
-          showScreen("home");
         }, 1180);
       }
 
