@@ -1,0 +1,2106 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pinu 排行榜 Demo</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        --bg: #cff2ff;
+        --bg-deep: #9fe5ff;
+        --blue: #1298ee;
+        --blue-dark: #0878ca;
+        --cyan: #35caef;
+        --ink: #101827;
+        --muted: #6f7d87;
+        --soft: #eef9ff;
+        --card: #ffffff;
+        --line: #d9edf7;
+        --green: #41c96b;
+        --yellow: #ffc447;
+        --orange: #ff9f1a;
+        --red: #ff5b69;
+        --purple: #8f7cff;
+        --shadow-blue: 0 8px 0 #0878ca, 0 18px 36px rgba(2, 88, 145, 0.2);
+        --shadow-soft: 0 18px 36px rgba(11, 102, 151, 0.16);
+        --radius-xl: 34px;
+        --radius-lg: 26px;
+        --radius-md: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+      }
+
+      body {
+        margin: 0;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(circle at 18% 14%, rgba(255, 255, 255, 0.88), transparent 22%),
+          radial-gradient(circle at 82% 78%, rgba(255, 255, 255, 0.72), transparent 22%),
+          linear-gradient(145deg, #f6fcff 0%, #c8f1ff 46%, #f9fdff 100%);
+        color: var(--ink);
+        font-family: "Avenir Next", "Nunito", ui-rounded, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      button {
+        border: 0;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      button:focus-visible {
+        outline: 3px solid rgba(18, 152, 238, 0.45);
+        outline-offset: 3px;
+      }
+
+      .stage {
+        position: relative;
+        width: min(100vw, 980px);
+        min-height: 100vh;
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+      }
+
+      .phone {
+        position: relative;
+        width: min(100%, 414px);
+        aspect-ratio: 414 / 896;
+        overflow: hidden;
+        border-radius: 36px;
+        outline: 9px solid rgba(255, 255, 255, 0.78);
+        background: var(--bg);
+        box-shadow: 0 24px 68px rgba(4, 104, 170, 0.3);
+      }
+
+      .screen {
+        position: absolute;
+        inset: 0;
+        display: none;
+        overflow: hidden;
+      }
+
+      .screen.is-active {
+        display: block;
+      }
+
+      .status-bar {
+        position: relative;
+        z-index: 8;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 28px;
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      .status-icons {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 13px;
+      }
+
+      .battery {
+        padding: 2px 7px;
+        border-radius: 8px;
+        background: var(--green);
+        color: white;
+        line-height: 1;
+      }
+
+      .home-screen {
+        background:
+          radial-gradient(ellipse at 15% 70%, rgba(255, 255, 255, 0.58) 0 11%, transparent 12%),
+          radial-gradient(ellipse at 90% 28%, rgba(255, 255, 255, 0.62) 0 8%, transparent 9%),
+          linear-gradient(180deg, #c8f0ff 0%, #bfefff 100%);
+      }
+
+      .home-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        filter: saturate(1.04) contrast(0.99);
+        display: none;
+      }
+
+      .home-tint {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(207, 242, 255, 0.08) 0%, rgba(207, 242, 255, 0.12) 54%, rgba(207, 242, 255, 0.78) 100%),
+          radial-gradient(circle at 50% 82%, rgba(255, 255, 255, 0.26), transparent 24%);
+      }
+
+      .top-pills {
+        position: relative;
+        z-index: 6;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 28px 0;
+      }
+
+      .pill-group {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+      }
+
+      .round-pill,
+      .wide-pill {
+        min-height: 52px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.74);
+        box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.72), 0 10px 22px rgba(3, 92, 150, 0.12);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .round-pill {
+        width: 52px;
+        color: var(--blue-dark);
+      }
+
+      .wide-pill {
+        min-width: 92px;
+        padding: 0 18px;
+        gap: 8px;
+        font-size: 19px;
+        font-weight: 900;
+        color: var(--blue);
+      }
+
+      .flag {
+        width: 24px;
+        height: 24px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(180deg, #ef4444 0 32%, #ffd34f 32% 68%, #ef4444 68%);
+        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.45);
+      }
+
+      .flame {
+        width: 18px;
+        height: 22px;
+        border-radius: 14px 14px 18px 18px;
+        background: #a8b3ba;
+        transform: rotate(8deg);
+      }
+
+      .unit-card {
+        position: relative;
+        z-index: 5;
+        margin: 36px 26px 0;
+        min-height: 118px;
+        display: grid;
+        grid-template-columns: 1fr 94px;
+        overflow: hidden;
+        border-radius: 30px;
+        color: white;
+        background:
+          radial-gradient(circle at 14% 7%, rgba(255, 255, 255, 0.64), transparent 24%),
+          linear-gradient(145deg, #0d88e6 0%, #13a5f2 58%, #35cdf3 100%);
+        box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.34), var(--shadow-blue);
+      }
+
+      .unit-copy {
+        padding: 26px 24px;
+      }
+
+      .unit-label {
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.03em;
+        opacity: 0.92;
+      }
+
+      .unit-title {
+        margin-top: 12px;
+        font-size: 25px;
+        line-height: 1.06;
+        font-weight: 1000;
+      }
+
+      .unit-side {
+        display: grid;
+        place-items: center;
+        border-left: 4px solid rgba(0, 103, 180, 0.24);
+        background: rgba(0, 112, 207, 0.18);
+      }
+
+      .path-stack {
+        position: relative;
+        z-index: 5;
+        height: 420px;
+      }
+
+      .lesson-node {
+        position: absolute;
+        width: 86px;
+        height: 86px;
+        border-radius: 24px;
+        display: grid;
+        place-items: center;
+        background: #ffffff;
+        box-shadow: 0 7px 0 #9ad8f5, 0 16px 30px rgba(8, 105, 168, 0.18);
+      }
+
+      .lesson-node.primary {
+        left: 50%;
+        top: 70px;
+        transform: translateX(-50%);
+        background: linear-gradient(145deg, #16a4f5, #0d8ee9);
+        box-shadow: 0 8px 0 #0878ca, 0 18px 36px rgba(8, 105, 168, 0.22);
+      }
+
+      .lesson-node.secondary {
+        left: 54%;
+        top: 200px;
+      }
+
+      .lesson-node.tertiary {
+        left: 35%;
+        top: 318px;
+        opacity: 0.92;
+      }
+
+      .node-dot {
+        width: 28px;
+        height: 20px;
+        border-radius: 999px;
+        border: 6px solid currentColor;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        color: #75d1f3;
+      }
+
+      .primary .node-dot {
+        color: white;
+      }
+
+      .bottom-nav {
+        position: absolute;
+        z-index: 8;
+        left: 46px;
+        right: 46px;
+        bottom: 28px;
+        height: 76px;
+        display: grid;
+        grid-template-columns: 1fr 74px 1fr;
+        align-items: center;
+        padding: 7px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.8), 0 16px 36px rgba(65, 101, 121, 0.2);
+      }
+
+      .nav-item {
+        height: 62px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: transparent;
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      .nav-item.icon-only {
+        width: 62px;
+        justify-self: center;
+        color: #101827;
+      }
+
+      .nav-item.is-active {
+        background: rgba(165, 181, 190, 0.36);
+      }
+
+      .leaderboard-screen,
+      .complete-screen,
+      .settlement-screen,
+      .profile-screen {
+        background: #f8fbfd;
+      }
+
+      .screen-header {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 22px 0;
+      }
+
+      .back-button,
+      .small-action {
+        width: 44px;
+        height: 44px;
+        border-radius: 16px;
+        background: #eef5f8;
+        color: #52616b;
+        display: grid;
+        place-items: center;
+        box-shadow: inset 0 2px 0 #ffffff;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .settle-button {
+        min-width: 60px;
+        height: 44px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(180deg, #28b7f5 0%, #1396ea 100%);
+        color: white;
+        font-size: 13px;
+        font-weight: 1000;
+        box-shadow: 0 5px 0 #0878ca, 0 12px 22px rgba(8, 105, 168, 0.18);
+      }
+
+      .leader-title {
+        padding: 18px 28px 0;
+      }
+
+      .leader-title h1 {
+        margin: 0;
+        font-size: 34px;
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .countdown {
+        min-height: 44px;
+        padding: 0 12px;
+        border-radius: 16px;
+        background: #eef5f8;
+        box-shadow: inset 0 2px 0 #ffffff;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #7f8c95;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .leader-summary {
+        margin: 14px 22px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .summary-tile {
+        min-height: 68px;
+        padding: 12px 14px;
+        border-radius: 20px;
+        background: white;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .summary-label {
+        color: #8d9aa3;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .summary-value {
+        margin-top: 5px;
+        color: var(--blue);
+        font-size: 24px;
+        line-height: 1;
+        font-weight: 1000;
+      }
+
+      .league-strip {
+        height: 84px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 26px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+
+      .cup {
+        position: relative;
+        width: 72px;
+        height: 90px;
+        opacity: 0.45;
+      }
+
+      .cup::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 12px;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px 12px 20px 20px;
+        background: currentColor;
+        box-shadow: inset -10px 0 rgba(255, 255, 255, 0.34);
+      }
+
+      .cup::after {
+        content: "";
+        position: absolute;
+        left: 22px;
+        bottom: 10px;
+        width: 28px;
+        height: 12px;
+        border-radius: 999px;
+        background: currentColor;
+        box-shadow: 0 -19px 0 -9px currentColor, 0 8px 0 rgba(70, 144, 172, 0.2);
+      }
+
+      .cup.gold {
+        width: 98px;
+        height: 108px;
+        color: #ffc400;
+        opacity: 1;
+        filter: drop-shadow(0 8px 0 #8ad6f0);
+      }
+
+      .cup.gold::before {
+        left: 17px;
+        top: 10px;
+        width: 64px;
+        height: 60px;
+        border: 8px solid #ff9f00;
+        background: linear-gradient(145deg, #fff06f 0%, #ffc400 60%);
+      }
+
+      .cup.bronze {
+        color: #d79a56;
+      }
+
+      .cup.silver {
+        color: #9ec9df;
+      }
+
+      .cup.locked {
+        color: #d7dadd;
+      }
+
+      .leader-list-wrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 250px;
+        bottom: 226px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+
+      .leader-list {
+        position: relative;
+        min-height: 520px;
+      }
+
+      .rank-row {
+        position: absolute;
+        left: 22px;
+        right: 22px;
+        height: 78px;
+        display: grid;
+        grid-template-columns: 42px 56px 1fr auto;
+        align-items: center;
+        gap: 12px;
+        padding: 0 14px;
+        border-radius: 24px;
+        background: white;
+        box-shadow:
+          0 8px 0 rgba(173, 209, 225, 0.25),
+          0 14px 24px rgba(56, 108, 137, 0.12);
+        transition:
+          transform 760ms cubic-bezier(0.2, 0.86, 0.24, 1),
+          background 240ms ease,
+          box-shadow 240ms ease;
+      }
+
+      .rank-row[data-rank="1"] { transform: translateY(0); }
+      .rank-row[data-rank="2"] { transform: translateY(88px); }
+      .rank-row[data-rank="3"] { transform: translateY(176px); }
+      .rank-row[data-rank="4"] { transform: translateY(264px); }
+      .rank-row[data-rank="5"] { transform: translateY(352px); }
+      .rank-row[data-rank="6"] { transform: translateY(440px); }
+
+      .rank-row.is-me {
+        background: #fff4b3;
+        box-shadow:
+          0 8px 0 rgba(230, 188, 38, 0.28),
+          0 16px 28px rgba(226, 172, 0, 0.18);
+      }
+
+      .rank-row.is-me::after {
+        content: "本人";
+        position: absolute;
+        right: 16px;
+        bottom: 8px;
+        color: rgba(225, 155, 0, 0.72);
+        font-size: 10px;
+        font-weight: 1000;
+      }
+
+      .rank-row.is-jump {
+        animation: rowPop 820ms ease both;
+      }
+
+      .rank-badge {
+        min-width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        font-size: 18px;
+        font-weight: 1000;
+        color: #44b11f;
+      }
+
+      .rank-badge.medal {
+        color: white;
+        box-shadow: 0 4px 0 rgba(0, 0, 0, 0.12);
+      }
+
+      .rank-badge.rank-1 {
+        background: var(--yellow);
+        color: #f29000;
+      }
+
+      .rank-badge.rank-2 {
+        background: #dceef7;
+        color: #7ba5b7;
+      }
+
+      .rank-badge.rank-3 {
+        background: #f4c180;
+        color: #c87400;
+      }
+
+      .avatar {
+        position: relative;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        color: white;
+        font-size: 24px;
+        font-weight: 1000;
+        box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.65);
+      }
+
+      .avatar.pink {
+        background: linear-gradient(145deg, #f055a6 0%, #9c4fe8 100%);
+      }
+
+      .avatar.blue {
+        background: linear-gradient(145deg, #22a6f4 0%, #32d5ef 100%);
+      }
+
+      .avatar.green {
+        background: linear-gradient(145deg, #48cf4a 0%, #09a86e 100%);
+      }
+
+      .avatar.orange {
+        background: linear-gradient(145deg, #ffb43d 0%, #ff6e5b 100%);
+      }
+
+      .avatar.purple {
+        background: linear-gradient(145deg, #b17cff 0%, #5d7cff 100%);
+      }
+
+      .avatar.frame::after,
+      .profile-avatar.frame::after,
+      .mini-avatar.frame::after {
+        content: "";
+        position: absolute;
+        inset: 1px;
+        border-radius: 50%;
+        border: 5px solid #ffc400;
+        box-shadow: inset 0 0 0 2px #ff9f00;
+      }
+
+      .avatar.frame-silver::after,
+      .profile-avatar.frame-silver::after,
+      .mini-avatar.frame-silver::after {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: 50%;
+        border: 5px solid #dff5ff;
+        box-shadow:
+          0 0 0 2px #88cde8,
+          0 0 18px rgba(80, 191, 236, 0.44);
+      }
+
+      .avatar.frame-gold::after,
+      .profile-avatar.frame-gold::after,
+      .mini-avatar.frame-gold::after {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: 50%;
+        border: 6px solid #ffe66f;
+        box-shadow:
+          0 0 0 3px #ffb51f,
+          0 0 22px rgba(255, 191, 31, 0.58);
+        animation: goldFramePulse 1300ms ease-in-out infinite;
+      }
+
+      .avatar.frame-effort::after,
+      .profile-avatar.frame-effort::after,
+      .mini-avatar.frame-effort::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 5px solid #94e8ff;
+        box-shadow: inset 0 0 0 2px #19a8e9;
+      }
+
+      .player-name {
+        font-size: 18px;
+        font-weight: 1000;
+        line-height: 1;
+      }
+
+      .player-meta {
+        margin-top: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #9aa4aa;
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .xp {
+        min-width: 68px;
+        text-align: right;
+        color: #9aa4aa;
+        font-size: 17px;
+        font-weight: 1000;
+      }
+
+      .is-me .player-name,
+      .is-me .xp {
+        color: #e19b00;
+      }
+
+      .xp-burst {
+        position: absolute;
+        z-index: 14;
+        right: 30px;
+        bottom: 146px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        min-width: 128px;
+        height: 62px;
+        padding: 0 20px;
+        border-radius: 22px;
+        background: linear-gradient(180deg, #ff6c76 0%, #ff4f62 100%);
+        color: white;
+        font-size: 22px;
+        font-weight: 1000;
+        box-shadow: 0 7px 0 #d63b4d, 0 18px 34px rgba(230, 58, 76, 0.28);
+      }
+
+      .xp-burst.is-visible {
+        display: flex;
+        animation: xpFloat 1400ms ease both;
+      }
+
+      .confetti-burst {
+        position: absolute;
+        z-index: 24;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        opacity: 0;
+      }
+
+      .leaderboard-screen.is-celebrating .confetti-burst {
+        opacity: 1;
+      }
+
+      .confetti-burst span {
+        position: absolute;
+        top: 92px;
+        left: var(--left, 50%);
+        width: 10px;
+        height: 30px;
+        border-radius: 4px;
+        background: var(--confetti-color, #ffc447);
+        transform: translateY(0) rotate(0deg);
+        box-shadow: 0 2px 6px rgba(16, 24, 39, 0.16);
+        animation: confettiFall 2000ms ease-out both;
+      }
+
+      .confetti-burst span:nth-child(1) { --left: 9%; --confetti-color: #ffc447; --drift: 40px; --fall: 430px; --rot: 420deg; animation-delay: 20ms; }
+      .confetti-burst span:nth-child(2) { --left: 15%; --confetti-color: #20b865; --drift: -28px; --fall: 360px; --rot: -340deg; animation-delay: 120ms; }
+      .confetti-burst span:nth-child(3) { --left: 22%; --confetti-color: #ff5b69; --drift: 46px; --fall: 470px; --rot: 460deg; animation-delay: 60ms; }
+      .confetti-burst span:nth-child(4) { --left: 29%; --confetti-color: #35caef; --drift: -38px; --fall: 390px; --rot: -390deg; animation-delay: 180ms; }
+      .confetti-burst span:nth-child(5) { --left: 36%; --confetti-color: #8f7cff; --drift: 34px; --fall: 450px; --rot: 360deg; animation-delay: 90ms; }
+      .confetti-burst span:nth-child(6) { --left: 44%; --confetti-color: #ff9f1a; --drift: -48px; --fall: 380px; --rot: -460deg; animation-delay: 30ms; }
+      .confetti-burst span:nth-child(7) { --left: 52%; --confetti-color: #20b865; --drift: 30px; --fall: 480px; --rot: 400deg; animation-delay: 150ms; }
+      .confetti-burst span:nth-child(8) { --left: 59%; --confetti-color: #35caef; --drift: -34px; --fall: 410px; --rot: -320deg; animation-delay: 70ms; }
+      .confetti-burst span:nth-child(9) { --left: 66%; --confetti-color: #ffc447; --drift: 42px; --fall: 460px; --rot: 440deg; animation-delay: 210ms; }
+      .confetti-burst span:nth-child(10) { --left: 73%; --confetti-color: #ff5b69; --drift: -42px; --fall: 370px; --rot: -380deg; animation-delay: 100ms; }
+      .confetti-burst span:nth-child(11) { --left: 80%; --confetti-color: #8f7cff; --drift: 34px; --fall: 430px; --rot: 370deg; animation-delay: 160ms; }
+      .confetti-burst span:nth-child(12) { --left: 88%; --confetti-color: #ff9f1a; --drift: -36px; --fall: 390px; --rot: -430deg; animation-delay: 50ms; }
+
+      .leader-footer {
+        position: absolute;
+        z-index: 9;
+        left: 22px;
+        right: 22px;
+        bottom: 22px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .leader-footer-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .sticky-me-card {
+        min-height: 66px;
+        border-radius: 22px;
+        padding: 8px 12px;
+        background: rgba(255, 244, 179, 0.96);
+        box-shadow: 0 10px 26px rgba(226, 172, 0, 0.18);
+        display: grid;
+        grid-template-columns: 38px 42px 1fr;
+        gap: 10px;
+        align-items: center;
+        text-align: left;
+      }
+
+      .sticky-me-rank {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: white;
+        color: #e19b00;
+        font-size: 18px;
+        font-weight: 1000;
+      }
+
+      .mini-avatar {
+        position: relative;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        color: white;
+        background: linear-gradient(145deg, #f055a6 0%, #9c4fe8 100%);
+        font-weight: 1000;
+      }
+
+      .sticky-me-name {
+        color: #2b3440;
+        font-size: 15px;
+        font-weight: 1000;
+      }
+
+      .sticky-me-meta {
+        margin-top: 3px;
+        color: #9b7400;
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .primary-button {
+        min-height: 58px;
+        border-radius: 19px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: linear-gradient(180deg, #28b7f5 0%, #1396ea 100%);
+        color: white;
+        font-size: 17px;
+        font-weight: 1000;
+        box-shadow: 0 7px 0 #0878ca, 0 18px 32px rgba(8, 105, 168, 0.2);
+      }
+
+      .secondary-button {
+        min-height: 42px;
+        border-radius: 16px;
+        background: #eef7fb;
+        color: var(--blue-dark);
+        font-size: 13px;
+        font-weight: 1000;
+      }
+
+      .complete-screen {
+        text-align: center;
+      }
+
+      .complete-hero {
+        padding: 96px 30px 0;
+      }
+
+      .mascot {
+        width: 190px;
+        height: 170px;
+        margin: 0 auto;
+        position: relative;
+        filter: drop-shadow(0 14px 0 rgba(110, 210, 241, 0.35));
+      }
+
+      .mascot-body {
+        position: absolute;
+        left: 32px;
+        top: 24px;
+        width: 132px;
+        height: 120px;
+        border-radius: 60% 52% 58% 48%;
+        background: linear-gradient(145deg, #22a6f4 0%, #0f8be6 100%);
+      }
+
+      .mascot-face {
+        position: absolute;
+        left: 66px;
+        top: 56px;
+        width: 64px;
+        height: 50px;
+        border-radius: 50%;
+        background: white;
+      }
+
+      .mascot-eye,
+      .mascot-eye::after {
+        position: absolute;
+        content: "";
+        top: 71px;
+        width: 14px;
+        height: 18px;
+        border-radius: 50%;
+        background: #121820;
+      }
+
+      .mascot-eye {
+        left: 78px;
+      }
+
+      .mascot-eye::after {
+        left: 30px;
+        top: 0;
+      }
+
+      .mascot-beak {
+        position: absolute;
+        left: 95px;
+        top: 94px;
+        width: 23px;
+        height: 17px;
+        border-radius: 50% 50% 60% 60%;
+        background: var(--orange);
+      }
+
+      .complete-hero h1 {
+        margin: 24px 0 10px;
+        color: var(--blue);
+        font-size: 40px;
+        line-height: 1;
+      }
+
+      .complete-hero p {
+        margin: 0;
+        color: #737f87;
+        font-size: 20px;
+        font-weight: 800;
+      }
+
+      .reward-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 54px 28px 0;
+      }
+
+      .reward {
+        min-height: 94px;
+        border-radius: 18px;
+        background: white;
+        border: 5px solid currentColor;
+        overflow: hidden;
+        color: var(--yellow);
+      }
+
+      .reward:nth-child(2) {
+        color: #24cfe8;
+      }
+
+      .reward:nth-child(3) {
+        color: #12bd91;
+      }
+
+      .reward-label {
+        height: 30px;
+        display: grid;
+        place-items: center;
+        background: currentColor;
+        color: white;
+        font-size: 12px;
+        font-weight: 1000;
+      }
+
+      .reward-value {
+        height: 55px;
+        display: grid;
+        place-items: center;
+        font-size: 20px;
+        font-weight: 1000;
+      }
+
+      .complete-actions {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        bottom: 30px;
+        display: grid;
+        grid-template-columns: 58px 1fr;
+        gap: 14px;
+      }
+
+      .share-button {
+        min-height: 58px;
+        border-radius: 18px;
+        background: white;
+        color: var(--blue);
+        box-shadow: inset 0 0 0 3px #e4edf2;
+        font-size: 22px;
+        font-weight: 1000;
+        display: grid;
+        place-items: center;
+      }
+
+      .rank-toast {
+        position: absolute;
+        z-index: 16;
+        left: 34px;
+        right: 34px;
+        top: 108px;
+        display: none;
+        padding: 15px 18px;
+        border-radius: 22px;
+        background: #101827;
+        color: white;
+        box-shadow: 0 18px 38px rgba(16, 24, 39, 0.28);
+        text-align: left;
+      }
+
+      .rank-toast.is-visible {
+        display: block;
+        animation: toastIn 1600ms ease both;
+      }
+
+      .rank-toast strong {
+        display: block;
+        font-size: 18px;
+      }
+
+      .rank-toast span {
+        display: block;
+        margin-top: 5px;
+        color: #d8e7ef;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .settlement-screen,
+      .profile-screen {
+        background:
+          radial-gradient(ellipse at 12% 16%, rgba(255, 255, 255, 0.62) 0 12%, transparent 13%),
+          radial-gradient(ellipse at 88% 9%, rgba(199, 241, 255, 0.94), transparent 28%),
+          linear-gradient(180deg, #d2f3ff 0%, #f6fbfd 42%, #eef5f8 100%);
+      }
+
+      .settlement-body {
+        padding: 0 24px;
+        text-align: center;
+      }
+
+      .settlement-trophy {
+        position: relative;
+        width: 92px;
+        height: 92px;
+        margin: 0 auto 10px;
+        display: grid;
+        place-items: center;
+      }
+
+      .settlement-title {
+        margin: 0;
+        color: #101827;
+        font-size: 27px;
+        line-height: 1.08;
+        font-weight: 1000;
+      }
+
+      .frame-award-card {
+        margin-top: 8px;
+        min-height: 0;
+        border-radius: 30px;
+        padding: 18px 16px 20px;
+        background: white;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .award-avatar-wrap {
+        position: relative;
+        width: 78px;
+        height: 78px;
+        margin: 0 auto;
+        display: grid;
+        place-items: center;
+      }
+
+      .falling-frame {
+        position: absolute;
+        z-index: 4;
+        left: 50%;
+        top: 2px;
+        width: 88px;
+        height: 88px;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        border: 8px solid #ffe66f;
+        background:
+          radial-gradient(circle, transparent 52%, rgba(255, 242, 148, 0.62) 54%, rgba(255, 181, 31, 0.76) 68%, transparent 70%),
+          conic-gradient(from -30deg, #fff2a1, #ffb51f, #ffe66f, #f49a11, #fff2a1);
+        box-shadow:
+          0 0 0 3px #ffb51f,
+          inset 0 0 0 5px rgba(255, 255, 255, 0.48),
+          0 0 34px rgba(255, 191, 31, 0.68);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .impact-ring {
+        position: absolute;
+        z-index: 3;
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 181, 31, 0.72);
+        opacity: 0;
+        transform: scale(0.62);
+        pointer-events: none;
+      }
+
+      .spark-dust {
+        position: absolute;
+        z-index: 5;
+        left: 50%;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--spark-color, #ffcc35);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .settlement-screen.is-awarding .impact-ring {
+        animation: impactRipple 680ms ease-out 650ms both;
+      }
+
+      .settlement-screen.is-awarding .spark-dust {
+        animation: sparkPop 720ms ease-out 680ms both;
+      }
+
+      .spark-dust:nth-child(3) { --sx: -54px; --sy: -20px; --spark-color: #ffc447; }
+      .spark-dust:nth-child(4) { --sx: -38px; --sy: 26px; --spark-color: #ff9f1a; }
+      .spark-dust:nth-child(5) { --sx: 0; --sy: -46px; --spark-color: #fff06f; }
+      .spark-dust:nth-child(6) { --sx: 42px; --sy: -18px; --spark-color: #ffc447; }
+      .spark-dust:nth-child(7) { --sx: 48px; --sy: 30px; --spark-color: #ff9f1a; }
+
+      .settlement-screen.is-awarding .falling-frame {
+        animation: frameDrop 980ms cubic-bezier(0.18, 0.82, 0.26, 1.08) both;
+      }
+
+      .profile-avatar {
+        position: relative;
+        width: 76px;
+        height: 76px;
+        margin: 0 auto;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background: linear-gradient(145deg, #f055a6 0%, #9c4fe8 100%);
+        color: white;
+        font-size: 32px;
+        font-weight: 1000;
+        box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.68);
+      }
+
+      .award-result {
+        margin-top: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .award-result .summary-tile {
+        min-height: 54px;
+        padding: 9px 8px;
+        background: #f3fbff;
+        box-shadow: inset 0 0 0 2px #dff3fb;
+      }
+
+      .award-result .summary-value {
+        font-size: 20px;
+      }
+
+      .award-result .summary-value.trend-up {
+        color: #20b865;
+      }
+
+      .award-result .summary-value.trend-down {
+        color: var(--red);
+      }
+
+      .settlement-rank-snapshot {
+        margin-top: 18px;
+        border-radius: 22px;
+        border: 3px solid #19a8e9;
+        background: #f5fcff;
+        overflow: hidden;
+        box-shadow: 0 10px 22px rgba(8, 105, 168, 0.12);
+      }
+
+      .snapshot-row {
+        min-height: 38px;
+        display: grid;
+        grid-template-columns: 28px 34px 1fr auto;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px;
+        text-align: left;
+      }
+
+      .snapshot-row + .snapshot-row {
+        border-top: 2px solid #e1f3fb;
+      }
+
+      .snapshot-row.is-me {
+        background: #fff4b3;
+      }
+
+      .snapshot-rank {
+        width: 24px;
+        height: 24px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: #eef7fb;
+        color: var(--blue-dark);
+        font-size: 12px;
+        font-weight: 1000;
+      }
+
+      .snapshot-row.is-me .snapshot-rank {
+        background: #ffc447;
+        color: #a76500;
+      }
+
+      .snapshot-avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        color: white;
+        font-size: 15px;
+        font-weight: 1000;
+        box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.64);
+      }
+
+      .snapshot-avatar.pink {
+        background: linear-gradient(145deg, #f055a6 0%, #9c4fe8 100%);
+      }
+
+      .snapshot-avatar.blue {
+        background: linear-gradient(145deg, #22a6f4 0%, #32d5ef 100%);
+      }
+
+      .snapshot-avatar.green {
+        background: linear-gradient(145deg, #48cf4a 0%, #09a86e 100%);
+      }
+
+      .snapshot-avatar.orange {
+        background: linear-gradient(145deg, #ffb43d 0%, #ff6e5b 100%);
+      }
+
+      .snapshot-name {
+        color: #182230;
+        font-size: 13px;
+        font-weight: 1000;
+      }
+
+      .snapshot-meta {
+        margin-top: 2px;
+        color: #8b98a1;
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .snapshot-xp {
+        color: #87939b;
+        font-size: 12px;
+        font-weight: 1000;
+      }
+
+      .settlement-actions,
+      .profile-actions {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        bottom: 30px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .profile-body {
+        padding: 22px 26px 0;
+      }
+
+      .profile-card {
+        margin-top: 10px;
+        border-radius: 32px;
+        padding: 26px 22px;
+        background: white;
+        box-shadow: var(--shadow-soft);
+        text-align: center;
+      }
+
+      .profile-name {
+        margin-top: 18px;
+        color: #101827;
+        font-size: 28px;
+        line-height: 1;
+        font-weight: 1000;
+      }
+
+      .profile-status {
+        margin-top: 9px;
+        color: #84919a;
+        font-size: 14px;
+        font-weight: 900;
+      }
+
+      .profile-stats {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .profile-section {
+        margin-top: 18px;
+        border-radius: 26px;
+        padding: 20px 18px;
+        background: white;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .profile-section h2 {
+        margin: 0 0 14px;
+        color: #101827;
+        font-size: 18px;
+        line-height: 1.1;
+      }
+
+      .profile-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 44px;
+        color: #27333c;
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .profile-row + .profile-row {
+        border-top: 2px solid #f0f5f8;
+      }
+
+      .profile-row span:last-child {
+        color: var(--blue-dark);
+      }
+
+      svg {
+        display: block;
+      }
+
+      @keyframes rowPop {
+        0% { scale: 1; }
+        45% { scale: 1.045; }
+        100% { scale: 1; }
+      }
+
+      @keyframes xpFloat {
+        0% {
+          transform: translateY(18px) scale(0.85);
+          opacity: 0;
+        }
+        18%,
+        72% {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-20px) scale(0.94);
+          opacity: 0;
+        }
+      }
+
+      @keyframes toastIn {
+        0% {
+          transform: translateY(-12px);
+          opacity: 0;
+        }
+        18%,
+        82% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-8px);
+          opacity: 0;
+        }
+      }
+
+      @keyframes confettiFall {
+        0% {
+          transform: translate(0, -20px) rotate(0deg) scale(0.82);
+          opacity: 0;
+        }
+        14% {
+          opacity: 1;
+        }
+        74% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--drift), var(--fall)) rotate(var(--rot)) scale(1);
+          opacity: 0;
+        }
+      }
+
+      @keyframes frameDrop {
+        0% {
+          transform: translate(-50%, -168px) rotate(-8deg) scale(0.9);
+          opacity: 0;
+        }
+        18% {
+          opacity: 1;
+        }
+        64% {
+          transform: translate(-50%, 0) rotate(5deg) scale(1.18);
+          opacity: 1;
+        }
+        78% {
+          transform: translate(-50%, 0) rotate(0deg) scale(0.94);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-50%, 0) rotate(0deg) scale(1);
+          opacity: 0;
+        }
+      }
+
+      @keyframes goldFramePulse {
+        0%,
+        100% {
+          box-shadow:
+            0 0 0 3px #ffb51f,
+            0 0 18px rgba(255, 191, 31, 0.48);
+        }
+        50% {
+          box-shadow:
+            0 0 0 4px #ffd25a,
+          0 0 30px rgba(255, 191, 31, 0.72);
+        }
+      }
+
+      @keyframes impactRipple {
+        0% {
+          transform: scale(0.58);
+          opacity: 0.84;
+        }
+        100% {
+          transform: scale(1.55);
+          opacity: 0;
+        }
+      }
+
+      @keyframes sparkPop {
+        0% {
+          transform: translate(-50%, -50%) scale(0.6);
+          opacity: 0;
+        }
+        18% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(0.92);
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 460px) {
+        .stage {
+          padding: 0;
+        }
+
+        .phone {
+          width: 100vw;
+          min-height: 100svh;
+          aspect-ratio: auto;
+          border-radius: 0;
+          outline: 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 1ms !important;
+          transition-duration: 1ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage">
+      <section class="phone" aria-label="Pinu 排行榜演示">
+        <section class="screen home-screen is-active" data-screen="home">
+          <img class="home-bg" src="../Pinu_game/assets/home-background.png" alt="" />
+          <div class="home-tint"></div>
+          <div class="status-bar">
+            <span>1:45</span>
+            <div class="status-icons">
+              <span>●●●</span>
+              <span>WiFi</span>
+              <span class="battery">91</span>
+            </div>
+          </div>
+
+          <div class="top-pills">
+            <div class="pill-group">
+              <span class="round-pill"><span class="flag" aria-hidden="true"></span></span>
+              <span class="wide-pill"><span class="flame" aria-hidden="true"></span>0</span>
+            </div>
+            <div class="pill-group">
+              <span class="wide-pill">
+                <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M12 4a8 8 0 0 1 8 8h-3a5 5 0 1 0-9.6 2H4.2A8 8 0 0 1 12 4Zm6.8 10a7.9 7.9 0 0 1-2 3.2L14.7 15A5 5 0 0 0 16.9 10H20c0 1.4-.4 2.8-1.2 4Zm-6.8 6a7.9 7.9 0 0 1-5.7-2.4l2.1-2.1A5 5 0 0 0 12 17v3Z"/>
+                </svg>
+                18
+              </span>
+            </div>
+          </div>
+
+          <article class="unit-card">
+            <div class="unit-copy">
+              <div class="unit-label">SECTION 1, UNIT 1</div>
+              <div class="unit-title">Greet and say goodbye</div>
+            </div>
+            <div class="unit-side">
+              <svg width="38" height="38" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="rgba(255,255,255,.76)" d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm2 5h6V6H9v2Zm0 5h7v-2H9v2Zm0 4h5v-2H9v2Z"/>
+              </svg>
+            </div>
+          </article>
+
+          <div class="path-stack" aria-hidden="true">
+            <div class="lesson-node primary"><span class="node-dot"></span></div>
+            <div class="lesson-node secondary"><span class="node-dot"></span></div>
+            <div class="lesson-node tertiary"><span class="node-dot"></span></div>
+          </div>
+
+          <nav class="bottom-nav" aria-label="底部导航">
+            <button class="nav-item is-active" type="button">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M5 5h4v14H5V5Zm10 0h4v14h-4V5Zm-5 4h4v10h-4V9Z"/>
+              </svg>
+              Study
+            </button>
+            <button class="nav-item icon-only" type="button" data-action="open-leaderboard" aria-label="进入排行榜">
+              <svg width="31" height="31" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M7 4h10v3h3a1 1 0 0 1 1 1v1.2A5.8 5.8 0 0 1 16.2 15 5 5 0 0 1 13 17.9V20h3v2H8v-2h3v-2.1A5 5 0 0 1 7.8 15 5.8 5.8 0 0 1 3 9.2V8a1 1 0 0 1 1-1h3V4Zm0 5H5v.2A3.8 3.8 0 0 0 7.1 12 9 9 0 0 1 7 10.8V9Zm12 0h-2v1.8c0 .4 0 .8-.1 1.2A3.8 3.8 0 0 0 19 9.2V9Z"/>
+              </svg>
+            </button>
+            <button class="nav-item" type="button">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 0 1 14 0H5Z"/>
+              </svg>
+            </button>
+          </nav>
+        </section>
+
+        <section class="screen leaderboard-screen" data-screen="leaderboard">
+          <div class="status-bar">
+            <span>10:13</span>
+            <div class="status-icons">
+              <span>●●●</span>
+              <span>WiFi</span>
+              <span class="battery">52</span>
+            </div>
+          </div>
+          <header class="screen-header">
+            <button class="back-button" type="button" data-action="go-home" aria-label="返回首页">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="m9.4 12 6.3 6.3-1.9 1.9L5.6 12l8.2-8.2 1.9 1.9L9.4 12Z"/>
+              </svg>
+            </button>
+            <div class="header-actions">
+              <div class="countdown" aria-label="本周榜单结算倒计时">
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 11h5v-2h-4V6h-2v7Z"/>
+                </svg>
+                5 天后结算
+              </div>
+              <button class="settle-button" type="button" data-action="show-settlement" aria-label="结算本周排行榜">
+                结算
+              </button>
+            </div>
+          </header>
+
+          <div class="confetti-burst" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <section class="leader-title">
+            <h1>新星周榜</h1>
+          </section>
+
+          <section class="leader-summary" aria-label="本人本周榜单摘要">
+            <article class="summary-tile">
+              <div class="summary-label">我的当前排名</div>
+              <div class="summary-value" data-summary-rank>第 6 名</div>
+            </article>
+            <article class="summary-tile">
+              <div class="summary-label">我的本周 XP</div>
+              <div class="summary-value" data-summary-xp>49 XP</div>
+            </article>
+          </section>
+
+          <div class="leader-list-wrap">
+            <div class="leader-list">
+              <article class="rank-row" data-user="mila" data-rank="1">
+                <div class="rank-badge medal rank-1">1</div>
+                <div class="avatar pink frame">M</div>
+                <div>
+                  <div class="player-name">Mila</div>
+                  <div class="player-meta">🇪🇸</div>
+                </div>
+                <div class="xp">118 XP</div>
+              </article>
+
+              <article class="rank-row" data-user="vincent" data-rank="2">
+                <div class="rank-badge medal rank-2">2</div>
+                <div class="avatar blue frame-silver">V</div>
+                <div>
+                  <div class="player-name">Vincent</div>
+                  <div class="player-meta">🇺🇸</div>
+                </div>
+                <div class="xp">83 XP</div>
+              </article>
+
+              <article class="rank-row" data-user="ryan" data-rank="3">
+                <div class="rank-badge medal rank-3">3</div>
+                <div class="avatar green frame-silver">R</div>
+                <div>
+                  <div class="player-name">Ryan</div>
+                  <div class="player-meta">🇫🇷</div>
+                </div>
+                <div class="xp">76 XP</div>
+              </article>
+
+              <article class="rank-row" data-user="chris" data-rank="4">
+                <div class="rank-badge">4</div>
+                <div class="avatar orange frame-effort">C</div>
+                <div>
+                  <div class="player-name">Chris</div>
+                  <div class="player-meta">🇮🇹</div>
+                </div>
+                <div class="xp">58 XP</div>
+              </article>
+
+              <article class="rank-row" data-user="sue" data-rank="5">
+                <div class="rank-badge">5</div>
+                <div class="avatar purple frame-effort">S</div>
+                <div>
+                  <div class="player-name">Sue</div>
+                  <div class="player-meta">🇰🇷</div>
+                </div>
+                <div class="xp">57 XP</div>
+              </article>
+
+              <article class="rank-row is-me" data-user="me" data-rank="6" data-action="open-profile" role="button" tabindex="0" aria-label="查看我的个人档案">
+                <div class="rank-badge">6</div>
+                <div class="avatar pink" data-me-avatar>C</div>
+                <div>
+                  <div class="player-name">C Cizzy</div>
+                  <div class="player-meta">🇪🇸</div>
+                </div>
+                <div class="xp" data-me-xp>49 XP</div>
+              </article>
+            </div>
+          </div>
+
+          <div class="xp-burst" data-xp-burst>+30 XP</div>
+          <div class="rank-toast" data-rank-toast>
+            <strong>排名上升到第 3 名</strong>
+            <span>超过 3 位同组学习者，距离第 2 名还差 4 XP。</span>
+          </div>
+
+          <footer class="leader-footer">
+            <button class="sticky-me-card" type="button" data-action="open-profile" aria-label="打开我的个人档案">
+              <span class="sticky-me-rank" data-sticky-rank>6</span>
+              <span class="mini-avatar" data-sticky-avatar>C</span>
+              <span>
+                <span class="sticky-me-name">C Cizzy</span>
+                <span class="sticky-me-meta" data-sticky-meta>49 XP · 暂未获得本周头像框</span>
+              </span>
+            </button>
+            <div class="leader-footer-actions">
+              <button class="primary-button" type="button" data-action="play-rank-up">
+                播放上升
+              </button>
+              <button class="primary-button" type="button" data-action="show-settlement">
+                结算本周
+              </button>
+            </div>
+            <button class="secondary-button" type="button" data-action="reset-rank">
+              重置榜单状态
+            </button>
+          </footer>
+        </section>
+
+        <section class="screen complete-screen" data-screen="complete">
+          <div class="status-bar">
+            <span>2:53</span>
+            <div class="status-icons">
+              <span>●●●</span>
+              <span>WiFi</span>
+              <span class="battery">62</span>
+            </div>
+          </div>
+
+          <section class="complete-hero">
+            <div class="mascot" aria-hidden="true">
+              <div class="mascot-body"></div>
+              <div class="mascot-face"></div>
+              <div class="mascot-eye"></div>
+              <div class="mascot-beak"></div>
+            </div>
+            <h1>完美！</h1>
+            <p>这次学习让你冲进前三。</p>
+          </section>
+
+          <section class="reward-cards">
+            <article class="reward">
+              <div class="reward-label">总 XP</div>
+              <div class="reward-value">+30</div>
+            </article>
+            <article class="reward">
+              <div class="reward-label">连击奖励</div>
+              <div class="reward-value">x25</div>
+            </article>
+            <article class="reward">
+              <div class="reward-label">榜单变化</div>
+              <div class="reward-value">6 → 3</div>
+            </article>
+          </section>
+
+          <div class="complete-actions">
+            <button class="share-button" type="button" data-action="open-leaderboard" aria-label="返回排行榜">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="m9.4 12 6.3 6.3-1.9 1.9L5.6 12l8.2-8.2 1.9 1.9L9.4 12Z"/>
+              </svg>
+            </button>
+            <button class="primary-button" type="button" data-action="show-settlement">
+              模拟周结算
+            </button>
+          </div>
+        </section>
+
+        <section class="screen settlement-screen" data-screen="settlement">
+          <div class="status-bar">
+            <span>9:41</span>
+            <div class="status-icons">
+              <span>●●●</span>
+              <span>WiFi</span>
+              <span class="battery">91</span>
+            </div>
+          </div>
+          <header class="screen-header">
+            <button class="back-button" type="button" data-action="open-leaderboard" aria-label="返回排行榜">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="m9.4 12 6.3 6.3-1.9 1.9L5.6 12l8.2-8.2 1.9 1.9L9.4 12Z"/>
+              </svg>
+            </button>
+          </header>
+
+          <section class="settlement-body">
+            <article class="frame-award-card">
+              <div class="settlement-trophy">
+                <div class="falling-frame" aria-hidden="true"></div>
+                <div class="impact-ring" aria-hidden="true"></div>
+                <span class="spark-dust" aria-hidden="true"></span>
+                <span class="spark-dust" aria-hidden="true"></span>
+                <span class="spark-dust" aria-hidden="true"></span>
+                <span class="spark-dust" aria-hidden="true"></span>
+                <span class="spark-dust" aria-hidden="true"></span>
+                <div class="profile-avatar settlement-avatar">C</div>
+              </div>
+              <h1 class="settlement-title">赞！你获得第 3 名</h1>
+
+              <div class="award-result">
+                <article class="summary-tile">
+                  <div class="summary-label">上周最终排名</div>
+                  <div class="summary-value">第 3 名</div>
+                </article>
+                <article class="summary-tile">
+                  <div class="summary-label">上周 XP</div>
+                  <div class="summary-value">79 XP</div>
+                </article>
+                <article class="summary-tile">
+                  <div class="summary-label">较上周 XP</div>
+                  <div class="summary-value trend-up">+27%</div>
+                </article>
+              </div>
+
+              <div class="settlement-rank-snapshot" aria-label="上周排行榜分段截图">
+                <div class="snapshot-row">
+                  <div class="snapshot-rank">1</div>
+                  <div class="snapshot-avatar pink">M</div>
+                  <div>
+                    <div class="snapshot-name">Mila</div>
+                    <div class="snapshot-meta">🇪🇸</div>
+                  </div>
+                  <div class="snapshot-xp">118 XP</div>
+                </div>
+                <div class="snapshot-row">
+                  <div class="snapshot-rank">2</div>
+                  <div class="snapshot-avatar blue">V</div>
+                  <div>
+                    <div class="snapshot-name">Vincent</div>
+                    <div class="snapshot-meta">🇺🇸</div>
+                  </div>
+                  <div class="snapshot-xp">83 XP</div>
+                </div>
+                <div class="snapshot-row is-me">
+                  <div class="snapshot-rank">3</div>
+                  <div class="snapshot-avatar pink">C</div>
+                  <div>
+                    <div class="snapshot-name">C Cizzy</div>
+                    <div class="snapshot-meta">🇪🇸</div>
+                  </div>
+                  <div class="snapshot-xp">79 XP</div>
+                </div>
+                <div class="snapshot-row">
+                  <div class="snapshot-rank">4</div>
+                  <div class="snapshot-avatar green">R</div>
+                  <div>
+                    <div class="snapshot-name">Ryan</div>
+                    <div class="snapshot-meta">🇫🇷</div>
+                  </div>
+                  <div class="snapshot-xp">76 XP</div>
+                </div>
+                <div class="snapshot-row">
+                  <div class="snapshot-rank">5</div>
+                  <div class="snapshot-avatar orange">C</div>
+                  <div>
+                    <div class="snapshot-name">Chris</div>
+                    <div class="snapshot-meta">🇮🇹</div>
+                  </div>
+                  <div class="snapshot-xp">58 XP</div>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <div class="settlement-actions">
+            <button class="primary-button" type="button" data-action="play-frame-grant">
+              继续
+            </button>
+          </div>
+        </section>
+
+        <section class="screen profile-screen" data-screen="profile">
+          <div class="status-bar">
+            <span>1:45</span>
+            <div class="status-icons">
+              <span>●●●</span>
+              <span>WiFi</span>
+              <span class="battery">91</span>
+            </div>
+          </div>
+          <header class="screen-header">
+            <button class="back-button" type="button" data-action="open-leaderboard" aria-label="返回排行榜">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="m9.4 12 6.3 6.3-1.9 1.9L5.6 12l8.2-8.2 1.9 1.9L9.4 12Z"/>
+              </svg>
+            </button>
+            <button class="small-action" type="button" data-action="go-home" aria-label="返回首页">
+              <svg width="23" height="23" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1v-8.5Z"/>
+              </svg>
+            </button>
+          </header>
+
+          <section class="profile-body">
+            <article class="profile-card">
+              <div class="profile-avatar" data-profile-avatar>C</div>
+              <div class="profile-name">C Cizzy</div>
+              <div class="profile-status" data-profile-status>暂无本周头像框</div>
+
+              <div class="profile-stats">
+                <article class="summary-tile">
+                  <div class="summary-label">本周 XP</div>
+                  <div class="summary-value" data-profile-weekly>49 XP</div>
+                </article>
+                <article class="summary-tile">
+                  <div class="summary-label">累计 XP</div>
+                  <div class="summary-value">1,248</div>
+                </article>
+              </div>
+            </article>
+
+            <article class="profile-section">
+              <h2>排行榜奖励</h2>
+              <div class="profile-row">
+                <span>当前佩戴头像框</span>
+                <span data-current-frame>默认头像样式</span>
+              </div>
+              <div class="profile-row">
+                <span>最近获得头像框</span>
+                <span data-latest-frame>暂无</span>
+              </div>
+              <div class="profile-row">
+                <span>本周榜单</span>
+                <span data-profile-rank>第 6 名</span>
+              </div>
+            </article>
+          </section>
+
+          <div class="profile-actions">
+            <button class="primary-button" type="button" data-action="open-leaderboard">
+              查看排行榜
+            </button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script>
+      const screens = [...document.querySelectorAll("[data-screen]")];
+      const meRow = document.querySelector('[data-user="me"]');
+      const chrisRow = document.querySelector('[data-user="chris"]');
+      const sueRow = document.querySelector('[data-user="sue"]');
+      const ryanRow = document.querySelector('[data-user="ryan"]');
+      const meXp = document.querySelector("[data-me-xp]");
+      const xpBurst = document.querySelector("[data-xp-burst]");
+      const toast = document.querySelector("[data-rank-toast]");
+      const leaderboardScreen = document.querySelector('[data-screen="leaderboard"]');
+      const summaryRank = document.querySelector("[data-summary-rank]");
+      const summaryXp = document.querySelector("[data-summary-xp]");
+      const stickyRank = document.querySelector("[data-sticky-rank]");
+      const stickyMeta = document.querySelector("[data-sticky-meta]");
+      const meAvatar = document.querySelector("[data-me-avatar]");
+      const stickyAvatar = document.querySelector("[data-sticky-avatar]");
+      const profileAvatar = document.querySelector("[data-profile-avatar]");
+      const profileStatus = document.querySelector("[data-profile-status]");
+      const profileWeekly = document.querySelector("[data-profile-weekly]");
+      const profileRank = document.querySelector("[data-profile-rank]");
+      const currentFrame = document.querySelector("[data-current-frame]");
+      const latestFrame = document.querySelector("[data-latest-frame]");
+      const settlementScreen = document.querySelector('[data-screen="settlement"]');
+      const settlementAvatar = document.querySelector(".settlement-avatar");
+      const state = {
+        rank: 6,
+        xp: 49,
+        frameGranted: false,
+      };
+
+      function showScreen(name) {
+        screens.forEach((screen) => {
+          screen.classList.toggle("is-active", screen.dataset.screen === name);
+        });
+      }
+
+      function setMeFrame(isGranted) {
+        [meAvatar, stickyAvatar, profileAvatar].forEach((avatar) => {
+          avatar.classList.toggle("frame-gold", isGranted);
+        });
+        profileStatus.textContent = isGranted ? "已自动佩戴优秀头像框" : "暂无本周头像框";
+        currentFrame.textContent = isGranted ? "优秀头像框" : "默认头像样式";
+        latestFrame.textContent = isGranted ? "优秀头像框" : "暂无";
+      }
+
+      function syncSummary() {
+        summaryRank.textContent = `第 ${state.rank} 名`;
+        summaryXp.textContent = `${state.xp} XP`;
+        stickyRank.textContent = state.rank;
+        stickyMeta.textContent = state.frameGranted
+          ? `${state.xp} XP · 已佩戴优秀头像框`
+          : `${state.xp} XP · 暂未获得本周头像框`;
+        profileWeekly.textContent = `${state.xp} XP`;
+        profileRank.textContent = `第 ${state.rank} 名`;
+        setMeFrame(state.frameGranted);
+      }
+
+      function setRankRows({ rank, xp }) {
+        state.rank = rank;
+        state.xp = xp;
+
+        if (rank === 3) {
+          meRow.dataset.rank = "3";
+          ryanRow.dataset.rank = "4";
+          chrisRow.dataset.rank = "5";
+          sueRow.dataset.rank = "6";
+          meRow.querySelector(".rank-badge").textContent = "3";
+          ryanRow.querySelector(".rank-badge").textContent = "4";
+          chrisRow.querySelector(".rank-badge").textContent = "5";
+          sueRow.querySelector(".rank-badge").textContent = "6";
+        } else {
+          meRow.dataset.rank = "6";
+          chrisRow.dataset.rank = "4";
+          sueRow.dataset.rank = "5";
+          ryanRow.dataset.rank = "3";
+          meRow.querySelector(".rank-badge").textContent = "6";
+          chrisRow.querySelector(".rank-badge").textContent = "4";
+          sueRow.querySelector(".rank-badge").textContent = "5";
+          ryanRow.querySelector(".rank-badge").textContent = "3";
+        }
+
+        meXp.textContent = `${xp} XP`;
+        syncSummary();
+      }
+
+      function resetRank() {
+        setRankRows({ rank: 6, xp: 49 });
+        meRow.classList.remove("is-jump");
+        leaderboardScreen.classList.remove("is-celebrating");
+        xpBurst.classList.remove("is-visible");
+        toast.classList.remove("is-visible");
+      }
+
+      function playRankUp() {
+        resetRank();
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            setRankRows({ rank: 3, xp: 79 });
+            meRow.classList.add("is-jump");
+            leaderboardScreen.classList.add("is-celebrating");
+            xpBurst.classList.add("is-visible");
+            toast.classList.add("is-visible");
+            setTimeout(() => {
+              leaderboardScreen.classList.remove("is-celebrating");
+            }, 2200);
+          }, 120);
+        });
+      }
+
+      function showSettlement() {
+        setRankRows({ rank: 3, xp: 79 });
+        state.frameGranted = false;
+        settlementScreen.classList.remove("is-awarding");
+        settlementAvatar.classList.remove("frame-gold");
+        syncSummary();
+        showScreen("settlement");
+      }
+
+      function playFrameGrant() {
+        settlementScreen.classList.add("is-awarding");
+        setTimeout(() => {
+          settlementAvatar.classList.add("frame-gold");
+          state.frameGranted = true;
+          syncSummary();
+        }, 820);
+        setTimeout(() => {
+          settlementScreen.classList.remove("is-awarding");
+          state.frameGranted = true;
+          syncSummary();
+          showScreen("home");
+        }, 1180);
+      }
+
+      document.addEventListener("click", (event) => {
+        const action = event.target.closest("[data-action]")?.dataset.action;
+        if (!action) return;
+
+        if (action === "open-leaderboard") showScreen("leaderboard");
+        if (action === "go-home") showScreen("home");
+        if (action === "open-profile") showScreen("profile");
+        if (action === "show-complete") showScreen("complete");
+        if (action === "show-settlement") showSettlement();
+        if (action === "play-frame-grant") playFrameGrant();
+        if (action === "play-rank-up") playRankUp();
+        if (action === "reset-rank") resetRank();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if ((event.key !== "Enter" && event.key !== " ") || !event.target.matches('[data-action="open-profile"]')) return;
+        event.preventDefault();
+        showScreen("profile");
+      });
+
+      syncSummary();
+    </script>
+  </body>
+</html>
