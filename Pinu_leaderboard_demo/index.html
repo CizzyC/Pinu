@@ -69,6 +69,10 @@
         min-height: 100vh;
         min-height: 100svh;
         display: grid;
+        grid-template-columns: minmax(0, 414px) 220px;
+        gap: 24px;
+        justify-content: center;
+        align-items: center;
         place-items: center;
         padding: 20px;
       }
@@ -363,39 +367,31 @@
         box-shadow: inset 0 2px 0 #ffffff;
       }
 
-      .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 8px;
+      .leaderboard-header {
+        justify-content: flex-start;
+        gap: 12px;
       }
 
-      .settle-button {
-        min-width: 60px;
-        height: 44px;
-        border-radius: 16px;
-        display: grid;
-        place-items: center;
-        background: linear-gradient(180deg, #28b7f5 0%, #1396ea 100%);
-        color: white;
-        font-size: 13px;
+      .screen-header-title {
+        margin: 0;
+        color: #101827;
+        font-size: 28px;
+        line-height: 1;
         font-weight: 1000;
-        box-shadow: 0 5px 0 #0878ca, 0 12px 22px rgba(8, 105, 168, 0.18);
       }
 
       .leader-title {
         padding: 18px 28px 0;
       }
 
-      .leader-title h1 {
-        margin: 0;
-        font-size: 34px;
-        line-height: 1.05;
-        letter-spacing: 0;
+      .leader-countdown-row {
+        display: flex;
+        justify-content: flex-start;
       }
 
       .countdown {
         min-height: 44px;
-        padding: 0 12px;
+        padding: 0 14px;
         border-radius: 16px;
         background: #eef5f8;
         box-shadow: inset 0 2px 0 #ffffff;
@@ -403,7 +399,7 @@
         align-items: center;
         gap: 6px;
         color: #7f8c95;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 900;
       }
 
@@ -510,8 +506,8 @@
         position: absolute;
         left: 0;
         right: 0;
-        top: 250px;
-        bottom: 226px;
+        top: 286px;
+        bottom: 88px;
         overflow-y: auto;
         overscroll-behavior: contain;
       }
@@ -713,30 +709,6 @@
         color: #e19b00;
       }
 
-      .xp-burst {
-        position: absolute;
-        z-index: 14;
-        right: 30px;
-        bottom: 146px;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        min-width: 128px;
-        height: 62px;
-        padding: 0 20px;
-        border-radius: 22px;
-        background: linear-gradient(180deg, #ff6c76 0%, #ff4f62 100%);
-        color: white;
-        font-size: 22px;
-        font-weight: 1000;
-        box-shadow: 0 7px 0 #d63b4d, 0 18px 34px rgba(230, 58, 76, 0.28);
-      }
-
-      .xp-burst.is-visible {
-        display: flex;
-        animation: xpFloat 1400ms ease both;
-      }
-
       .confetti-burst {
         position: absolute;
         z-index: 24;
@@ -783,13 +755,6 @@
         right: 22px;
         bottom: 22px;
         display: grid;
-        gap: 10px;
-      }
-
-      .leader-footer-actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
       }
 
       .sticky-me-card {
@@ -870,6 +835,37 @@
         color: var(--blue-dark);
         font-size: 13px;
         font-weight: 1000;
+      }
+
+      .demo-tools {
+        width: 220px;
+        border-radius: 24px;
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow: 0 18px 36px rgba(11, 102, 151, 0.14);
+        display: grid;
+        gap: 10px;
+      }
+
+      .demo-tools-title {
+        margin: 0;
+        color: #101827;
+        font-size: 16px;
+        font-weight: 1000;
+      }
+
+      .demo-tools-note {
+        margin: -4px 0 4px;
+        color: #6f7d87;
+        font-size: 12px;
+        line-height: 1.35;
+        font-weight: 800;
+      }
+
+      .demo-tools .primary-button {
+        min-height: 50px;
+        border-radius: 16px;
+        font-size: 14px;
       }
 
       .complete-screen {
@@ -1383,22 +1379,6 @@
         100% { scale: 1; }
       }
 
-      @keyframes xpFloat {
-        0% {
-          transform: translateY(18px) scale(0.85);
-          opacity: 0;
-        }
-        18%,
-        72% {
-          transform: translateY(0) scale(1);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(-20px) scale(0.94);
-          opacity: 0;
-        }
-      }
-
       @keyframes confettiFall {
         0% {
           transform: translate(0, -20px) rotate(0deg) scale(0.82);
@@ -1480,6 +1460,8 @@
       @media (max-width: 460px) {
         .stage {
           padding: 0;
+          grid-template-columns: 1fr;
+          gap: 0;
         }
 
         .phone {
@@ -1488,6 +1470,21 @@
           aspect-ratio: auto;
           border-radius: 0;
           outline: 0;
+        }
+
+        .demo-tools {
+          width: calc(100vw - 32px);
+          margin: 16px auto 24px;
+        }
+      }
+
+      @media (min-width: 461px) and (max-width: 760px) {
+        .stage {
+          grid-template-columns: 1fr;
+        }
+
+        .demo-tools {
+          width: min(100%, 414px);
         }
       }
 
@@ -1579,23 +1576,13 @@
               <span class="battery">52</span>
             </div>
           </div>
-          <header class="screen-header">
+          <header class="screen-header leaderboard-header">
             <button class="back-button" type="button" data-action="go-home" aria-label="返回首页">
               <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill="currentColor" d="m9.4 12 6.3 6.3-1.9 1.9L5.6 12l8.2-8.2 1.9 1.9L9.4 12Z"/>
               </svg>
             </button>
-            <div class="header-actions">
-              <div class="countdown" aria-label="本周榜单结算倒计时">
-                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 11h5v-2h-4V6h-2v7Z"/>
-                </svg>
-                5 天后结算
-              </div>
-              <button class="settle-button" type="button" data-action="show-settlement" aria-label="结算本周排行榜">
-                结算
-              </button>
-            </div>
+            <h1 class="screen-header-title">排行榜</h1>
           </header>
 
           <div class="confetti-burst" aria-hidden="true">
@@ -1613,8 +1600,13 @@
             <span></span>
           </div>
 
-          <section class="leader-title">
-            <h1>新星周榜</h1>
+          <section class="leader-title leader-countdown-row">
+            <div class="countdown" aria-label="本周榜单结算倒计时">
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 11h5v-2h-4V6h-2v7Z"/>
+              </svg>
+              5 天后结算
+            </div>
           </section>
 
           <section class="leader-summary" aria-label="本人本周榜单摘要">
@@ -1692,8 +1684,6 @@
             </div>
           </div>
 
-          <div class="xp-burst" data-xp-burst>+30 XP</div>
-
           <footer class="leader-footer">
             <button class="sticky-me-card" type="button" data-action="open-profile" aria-label="打开我的个人档案">
               <span class="sticky-me-rank" data-sticky-rank>6</span>
@@ -1702,17 +1692,6 @@
                 <span class="sticky-me-name">C Cizzy</span>
                 <span class="sticky-me-meta" data-sticky-meta>49 XP · 暂未获得本周挂件</span>
               </span>
-            </button>
-            <div class="leader-footer-actions">
-              <button class="primary-button" type="button" data-action="play-rank-up">
-                播放上升
-              </button>
-              <button class="primary-button" type="button" data-action="show-settlement">
-                结算本周
-              </button>
-            </div>
-            <button class="secondary-button" type="button" data-action="reset-rank">
-              重置榜单状态
             </button>
           </footer>
         </section>
@@ -1937,6 +1916,17 @@
           </div>
         </section>
       </section>
+
+      <aside class="demo-tools" aria-label="排行榜演示工具">
+        <h2 class="demo-tools-title">演示工具</h2>
+        <p class="demo-tools-note">仅用于评审时触发状态，不属于正式页面。</p>
+        <button class="primary-button" type="button" data-action="play-rank-up">
+          播放上升动画
+        </button>
+        <button class="primary-button" type="button" data-action="show-settlement">
+          结算本周
+        </button>
+      </aside>
     </main>
 
     <script>
@@ -1946,7 +1936,6 @@
       const sueRow = document.querySelector('[data-user="sue"]');
       const ryanRow = document.querySelector('[data-user="ryan"]');
       const meXp = document.querySelector("[data-me-xp]");
-      const xpBurst = document.querySelector("[data-xp-burst]");
       const leaderboardScreen = document.querySelector('[data-screen="leaderboard"]');
       const summaryRank = document.querySelector("[data-summary-rank]");
       const summaryXp = document.querySelector("[data-summary-xp]");
@@ -2029,7 +2018,6 @@
         setRankRows({ rank: 6, xp: 49 });
         meRow.classList.remove("is-jump");
         leaderboardScreen.classList.remove("is-celebrating");
-        xpBurst.classList.remove("is-visible");
       }
 
       function playRankUp() {
@@ -2039,7 +2027,6 @@
             setRankRows({ rank: 3, xp: 79 });
             meRow.classList.add("is-jump");
             leaderboardScreen.classList.add("is-celebrating");
-            xpBurst.classList.add("is-visible");
             setTimeout(() => {
               leaderboardScreen.classList.remove("is-celebrating");
             }, 2200);
